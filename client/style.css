@@ -1,0 +1,895 @@
+/* ==========================================================================
+   1. IMPORTS & FONTS
+   ========================================================================== */
+@import url('https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css');
+
+@font-face {
+  font-family: 'Lyon Text OSF Web';
+  src: local('Lyon Text OSF Web');
+  font-display: swap;
+}
+
+/* ==========================================================================
+   2. VARIABILI & SETUP GLOBALE
+   ========================================================================== */
+:root {
+  --paper: #fffefa;
+  --line: #e3e1dc;
+  --muted: #85837d;
+  --ink: #252521;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f6f5f2;
+  color: var(--ink);
+  font-family: 'Lyon Text OSF Web', Georgia, 'Times New Roman', serif;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  color: inherit;
+}
+
+.dot {
+  color: #aaa;
+}
+
+/* ==========================================================================
+   3. LAYOUT PRINCIPALE & HEADER
+   ========================================================================== */
+.shell {
+  min-height: 100vh;
+}
+
+.topbar {
+  height: 70px;
+  padding: 0 5vw;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 4;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.brand b,
+.brand small {
+  display: block;
+}
+
+.brand b {
+  font-size: 17px;
+}
+
+.brand small {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.brand-icon {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: white;
+}
+
+.top-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+main {
+  max-width: 1360px;
+  width: 90%;
+  margin: auto;
+  padding: 55px 0 80px;
+}
+
+.heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.eyebrow {
+  font: 10px Arial, sans-serif;
+  letter-spacing: 0.16em;
+  color: #96938c;
+}
+
+.heading h1 {
+  font-size: clamp(36px, 5vw, 55px);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 1;
+  margin: 9px 0;
+}
+
+.heading p {
+  color: var(--muted);
+  margin: 10px 0 0;
+  font-size: 15px;
+}
+
+.count {
+  color: var(--muted);
+  font: 12px Arial, sans-serif;
+}
+
+/* ==========================================================================
+   4. PULSANTI E CONTROLLI DELLO FILTRO
+   ========================================================================== */
+.button {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+  padding: 9px 13px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-size: 13px;
+}
+
+.button.dark {
+  background: var(--ink);
+  color: white;
+  border-color: var(--ink);
+}
+
+.button.small {
+  padding: 7px 10px;
+}
+
+.button:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+.settings-button {
+  padding: 9px 12px;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 16px;
+  margin-bottom: 26px;
+}
+.filter-menu {
+  position: relative;
+  margin-left: auto;
+}
+
+.filter-menu summary {
+  height: 39px;
+  padding: 0 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+  color: var(--ink);
+  font: 12px Arial, sans-serif;
+  cursor: pointer;
+  list-style: none;
+}
+
+.filter-menu summary::-webkit-details-marker {
+  display: none;
+}
+
+.filter-menu summary:hover {
+  background: #faf9f6;
+}
+
+.filter-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 8;
+  width: 230px;
+  padding: 14px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  box-shadow: 0 8px 28px rgba(28, 28, 25, 0.12);
+  display: grid;
+  gap: 12px;
+}
+
+.filter-field {
+  display: grid;
+  gap: 5px;
+}
+
+.filter-field span {
+  color: var(--muted);
+  font: 10px Arial, sans-serif;
+}
+
+.filter-field select {
+  width: 100%;
+  height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: white;
+  padding: 0 9px;
+  color: var(--ink);
+  font: 12px Arial, sans-serif;
+}
+
+.search {
+  height: 39px;
+  width: 290px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--muted);
+}
+
+.search input {
+  border: 0;
+  outline: 0;
+  min-width: 0;
+  width: 100%;
+  font-size: 13px;
+  background: transparent;
+}
+
+.clear {
+  border: 0;
+  background: none;
+  padding: 2px;
+}
+
+.tabs {
+  display: flex;
+  gap: 3px;
+  flex-wrap: wrap;
+}
+
+.tabs button {
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--muted);
+  padding: 8px 11px;
+  border-radius: 7px;
+  font-size: 13px;
+}
+
+.tabs button.selected {
+  background: white;
+  border-color: var(--line);
+  color: var(--ink);
+}
+
+.select-wrap {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--muted);
+  font: 11px Arial, sans-serif;
+}
+
+.select-wrap select {
+  height: 39px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+  padding: 0 10px;
+  color: var(--ink);
+  font: 12px Arial, sans-serif;
+}
+
+.sort-wrap {
+  margin-left: auto;
+}
+
+/* ==========================================================================
+   5. GRIGLIA ED ELEMENTI (CARD)
+   ========================================================================== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 25px 17px;
+}
+
+.item {
+  min-width: 0;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.16s, box-shadow 0.16s;
+}
+
+.item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(28, 28, 25, 0.07);
+}
+
+.art {
+  aspect-ratio: 2 / 3;
+  position: relative;
+  overflow: hidden;
+  background: #ebeae5;
+  border-bottom: 1px solid var(--line);
+}
+
+.art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.art-placeholder {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #aaa79f;
+}
+
+.type-pill {
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 5px;
+  padding: 5px 7px;
+  font: 10px Arial, sans-serif;
+  font-weight: 600;
+  max-width: calc(100% - 65px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.actions {
+  position: absolute;
+  right: 7px;
+  top: 7px;
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-3px);
+  transition:
+    opacity 0.22s ease-out,
+    transform 0.22s ease-out;
+}
+
+.item:hover .actions,
+.item:focus-within .actions {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+@media (hover: none) {
+  .actions {
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+  }
+}
+
+.actions button {
+  padding: 6px;
+  background: #fffefaf2;
+  border: 1px solid #e3e1dc;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.item-info {
+  padding: 12px 12px 13px;
+}
+
+.item h2 {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0;
+  overflow-wrap: anywhere;
+  min-height: 1.2em;
+}
+
+.subline {
+  min-height: 18px;
+  color: var(--muted);
+  font: 11px Arial, sans-serif;
+  margin: 5px 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.where {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.item-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px 0;
+}
+
+.stars {
+  font: 12px Arial, sans-serif;
+  letter-spacing: 1px;
+  color: #292925;
+}
+
+.stars span {
+  color: #d5d3cc;
+}
+
+.item-bottom a {
+  color: #777;
+  text-decoration: none;
+}
+
+.notes {
+  font-size: 12px;
+  color: #777;
+  margin: 6px 0;
+}
+
+/* Stato Vuoto & Errori */
+.empty {
+  text-align: center;
+  padding: 80px 10px;
+  color: var(--muted);
+}
+
+.empty-icon {
+  font-size: 28px;
+}
+
+.empty h2 {
+  color: var(--ink);
+  font-size: 21px;
+  font-weight: 500;
+  margin: 12px 0 5px;
+}
+
+.empty p {
+  font-size: 14px;
+  margin: 0 0 18px;
+}
+
+.error,
+.form-error {
+  color: #a13f35;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ==========================================================================
+   6. MODALI (DIALOG) ED EDITOR
+   ========================================================================== */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: #1c1c1a66;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+}
+
+.dialog {
+  width: min(700px, 100%);
+  max-height: 94vh;
+  overflow: auto;
+  background: var(--paper);
+  border-radius: 13px;
+  border: 1px solid var(--line);
+  box-shadow: 0 24px 70px #0003;
+}
+
+.settings-dialog {
+  width: min(520px, 100%);
+}
+
+.dialog-head {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.dialog-head h2 {
+  font-size: 24px;
+  font-weight: 500;
+  margin: 5px 0 0;
+}
+
+.close {
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  background: white;
+  border: 1px solid var(--line);
+}
+
+.form-body {
+  padding: 20px 24px;
+  display: grid;
+  gap: 15px;
+}
+
+.field-row {
+  display: flex;
+  gap: 12px;
+}
+
+.grow {
+  flex: 1;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  font-size: 12px;
+  color: #66645e;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: white;
+  padding: 9px 10px;
+  font-size: 13px;
+  outline: 0;
+  color: var(--ink);
+}
+
+.field textarea {
+  resize: vertical;
+}
+
+.type-field {
+  width: 165px;
+}
+
+.year-field {
+  width: 105px;
+}
+
+.lookup-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.lookup-hint {
+  font: 11px Arial, sans-serif;
+  color: #999;
+}
+
+.results {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: auto;
+  max-height: 220px;
+}
+
+.result {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  border: 0;
+  border-bottom: 1px solid #eee;
+  background: white;
+  padding: 8px;
+}
+
+.result:last-child {
+  border-bottom: 0;
+}
+
+.result img,
+.result-placeholder {
+  width: 34px;
+  height: 47px;
+  object-fit: cover;
+  background: #eee;
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+
+.result > span:nth-child(2) {
+  display: grid;
+  gap: 3px;
+  flex: 1;
+}
+
+.result b {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.result small {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.interest-panel {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #faf9f6;
+  padding: 11px 13px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.interest-panel small {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 3px;
+}
+
+.star-picker {
+  display: flex;
+  gap: 3px;
+}
+
+.star-picker button {
+  border: 0;
+  background: none;
+  padding: 2px;
+  color: #d1cfc8;
+  font: 22px Arial;
+}
+
+.star-picker button.on {
+  color: #292925;
+}
+
+.dialog-foot {
+  border-top: 1px solid var(--line);
+  padding: 14px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dialog-foot > div {
+  display: flex;
+  gap: 8px;
+}
+
+.db-note {
+  font: 10px Arial, sans-serif;
+  color: #999;
+}
+
+/* ==========================================================================
+   7. IMPOSTAZIONI E CATEGORIE
+   ========================================================================== */
+.settings-title {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0 0 5px;
+}
+
+.settings-copy {
+  color: var(--muted);
+  font-size: 13px;
+  margin: 0;
+  line-height: 1.45;
+}
+
+.add-category {
+  display: flex;
+  gap: 8px;
+}
+
+.add-category input,
+.rename-form input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  padding: 9px 10px;
+  background: white;
+  outline: 0;
+}
+
+.category-list {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.category-row {
+  min-height: 47px;
+  padding: 7px 9px 7px 12px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  border-bottom: 1px solid #eeede8;
+}
+
+.category-row:last-child {
+  border-bottom: 0;
+}
+
+.category-name {
+  flex: 1;
+  font-size: 13px;
+}
+
+.category-count {
+  color: var(--muted);
+  font: 10px Arial, sans-serif;
+}
+
+.icon-action {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #777;
+}
+
+.icon-action:hover:not(:disabled) {
+  background: #efeee9;
+  color: #222;
+}
+
+.icon-action:disabled {
+  opacity: 0.28;
+  cursor: not-allowed;
+}
+
+.rename-form {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+}
+
+.rename-form input {
+  font-size: 13px;
+}
+
+/* ==========================================================================
+   8. MEDIA QUERIES (RESPONSIVE)
+   ========================================================================== */
+@media (max-width: 1100px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 780px) {
+  main {
+    padding-top: 40px;
+    width: 92%;
+  }
+
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .search {
+    width: 100%;
+  }
+
+  .filter-menu {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 540px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px 12px;
+  }
+
+  .heading {
+    display: block;
+  }
+
+  .count {
+    display: block;
+    margin-top: 13px;
+  }
+
+  .field-row {
+    flex-direction: column;
+  }
+
+  .type-field,
+  .year-field {
+    width: 100%;
+  }
+
+  .interest-panel {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .form-body {
+    padding: 17px 16px;
+  }
+
+  .dialog-head {
+    padding: 18px 16px 14px;
+  }
+
+  .dialog-foot {
+    padding: 13px 16px;
+  }
+
+  .brand small {
+    display: none;
+  }
+
+  .top-actions {
+    gap: 6px;
+  }
+
+  .top-actions .button {
+    padding: 9px 10px;
+  }
+}
