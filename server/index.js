@@ -18,7 +18,7 @@ app.use("/api/preview", previewRouter);
 const dist = path.join(root, "dist");
 if (fs.existsSync(dist)) {
   app.use(express.static(dist));
-  app.get("*", (_req, res) => res.sendFile(path.join(dist, "index.html")));
+  app.get("/*splat", (_req, res) => res.sendFile(path.join(dist, "index.html")));
 }
 
 app.listen(Number(process.env.PORT || 3001), "0.0.0.0", () =>
