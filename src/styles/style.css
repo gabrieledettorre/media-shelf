@@ -893,3 +893,201 @@ main {
     padding: 9px 10px;
   }
 }
+
+/* ==========================================================================
+   9. ANTEPRIMA DAL LINK
+   ========================================================================== */
+.link-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.link-row input {
+  flex: 1;
+  min-width: 0;
+}
+
+.link-row .button {
+  white-space: nowrap;
+  flex: none;
+}
+
+.preview-msg {
+  font: 11px Arial, sans-serif;
+  margin-top: 4px;
+  display: block;
+}
+
+.preview-msg.ok {
+  color: #4a7a54;
+}
+
+.preview-msg.err {
+  color: #a13f35;
+}
+
+@media (max-width: 540px) {
+  .link-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .link-row .button {
+    justify-content: center;
+  }
+}
+/* ==========================================================================
+   9. ANTEPRIMA DAL LINK
+   ========================================================================== */
+.link-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.link-row input {
+  flex: 1;
+  min-width: 0;
+}
+
+.link-row .button {
+  white-space: nowrap;
+  flex: none;
+}
+
+.preview-msg {
+  font: 11px Arial, sans-serif;
+  margin-top: 4px;
+  display: block;
+  line-height: 1.4;
+}
+
+.preview-msg.ok {
+  color: #4a7a54;
+}
+
+.preview-msg.err {
+  color: #a13f35;
+}
+
+/* ==========================================================================
+   10. EDITOR A DUE COLONNE
+   ========================================================================== */
+.editor-dialog {
+  width: min(1000px, 100%);
+}
+
+.editor-body {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 22px;
+  padding: 20px 24px;
+  align-items: start;
+}
+
+.editor-cover {
+  position: sticky;
+  top: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.cover-frame {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  background: #ebeae5;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.cover-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.cover-placeholder {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #aaa79f;
+  text-align: center;
+  gap: 6px;
+  padding: 16px;
+}
+
+.cover-placeholder small {
+  font: 11px Arial, sans-serif;
+  color: #aaa79f;
+}
+
+.cover-loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: #fffefab0;
+  color: var(--ink);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+.cover-actions {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+.upload {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.upload input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.editor-fields {
+  display: grid;
+  gap: 15px;
+  min-width: 0;
+}
+
+@media (max-width: 780px) {
+  .editor-body {
+    grid-template-columns: 1fr;
+  }
+  .editor-cover {
+    position: static;
+    max-width: 260px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 540px) {
+  .link-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .link-row .button {
+    justify-content: center;
+  }
+  .editor-body {
+    padding: 16px;
+    gap: 16px;
+  }
+  .editor-cover {
+    max-width: 200px;
+  }
+}

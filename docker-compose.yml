@@ -1,11 +1,11 @@
 services:
   media-shelf:
-    build: .
+    build: ghcr.io/gabrieledettorre/media-shelf:latest
     container_name: media-shelf
     ports:
       - "3001:3001"
     environment:
       - TMDB_API_KEY=${TMDB_API_KEY:-}
     volumes:
-      - ./data:/app/data
+      - /mnt/pve/ssd-sata/docker/media-shelf/data:/app/data
     restart: unless-stopped
