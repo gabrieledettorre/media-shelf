@@ -1,6 +1,6 @@
 services:
   media-shelf:
-    build: ghcr.io/gabrieledettorre/media-shelf:latest
+    image: ghcr.io/gabrieledettorre/media-shelf:latest
     container_name: media-shelf
     ports:
       - "3001:3001"

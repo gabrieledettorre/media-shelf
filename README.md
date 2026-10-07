@@ -17,7 +17,7 @@ Il font Lyon Text OSF Web viene usato se installato localmente. È proprietario 
 
 ## Build e Docker (per un deploy futuro)
 ```sh
-npm run build
-npm start
+docker compose pull 
+docker compose up -d 
 ```
 Il server serve la build su http://localhost:3001. In Docker il database va mantenuto nel volume `./data`.
