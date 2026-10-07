@@ -211,7 +211,7 @@ export default function App() {
                 key={item.id}
                 item={item}
                 categories={categories}
-                onEdit={() => setEditor({ ...item, year: item.year ?? "" })}
+                onEdit={() => setEditor({ ...item })}
                 onDelete={() => remove(item)}
               />
             ))}

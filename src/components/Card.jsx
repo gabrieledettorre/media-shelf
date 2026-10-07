@@ -54,7 +54,6 @@ export default function Card({ item, onEdit, onDelete, categories = [] }) {
       <div className="item-info">
         <h2>{item.title}</h2>
         <div className="subline">
-          {item.year || ""}
           {item.where_to && (
             <>
               <span className="dot">·</span>

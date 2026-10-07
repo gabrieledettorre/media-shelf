@@ -59,18 +59,24 @@ export default function Editor({ item, categories, onClose, onSave }) {
     }
   }
 
-  useEffect(() => {
-    const url = (form.link || "").trim();
-    if (!/^https?:\/\//i.test(url)) return;
+  // L'anteprima parte solo quando l'utente modifica attivamente il campo Link.
+  // Niente effetto su [form.link], così aprendo una scheda esistente non parte nulla.
+  function onLinkChange(value) {
+    set("link", value);
     if (pasteTimer.current) clearTimeout(pasteTimer.current);
+    const url = (value || "").trim();
+    if (!/^https?:\/\//i.test(url)) return;
     pasteTimer.current = setTimeout(() => {
       runPreview(url);
     }, 600);
+  }
+
+  // Cleanup del timer quando il componente viene chiuso
+  useEffect(() => {
     return () => {
       if (pasteTimer.current) clearTimeout(pasteTimer.current);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [form.link]);
+  }, []);
 
   async function submit(e) {
     e.preventDefault();
@@ -79,7 +85,6 @@ export default function Editor({ item, categories, onClose, onSave }) {
     try {
       await onSave({
         ...form,
-        year: form.year === "" ? null : Number(form.year),
         interest: Number(form.interest),
       });
     } catch (e) {
@@ -225,35 +230,13 @@ export default function Editor({ item, categories, onClose, onSave }) {
               </label>
             </div>
 
-            <div className="field-row">
-              <label className="field year-field">
-                <span>Anno</span>
-                <input
-                  type="number"
-                  min="0"
-                  max="9999"
-                  value={form.year}
-                  onChange={(e) => set("year", e.target.value)}
-                  placeholder="2026"
-                />
-              </label>
-              <label className="field grow">
-                <span>Dove lo trovo?</span>
-                <input
-                  value={form.where_to}
-                  onChange={(e) => set("where_to", e.target.value)}
-                  placeholder="Netflix, Steam, biblioteca..."
-                />
-              </label>
-            </div>
-
             <label className="field">
               <span>Link</span>
               <div className="link-row">
                 <input
                   type="url"
                   value={form.link}
-                  onChange={(e) => set("link", e.target.value)}
+                  onChange={(e) => onLinkChange(e.target.value)}
                   placeholder="https://..."
                 />
                 <button
@@ -271,33 +254,38 @@ export default function Editor({ item, categories, onClose, onSave }) {
               </div>
               {previewMsg && (
                 <span
-                  className={
-                    previewErr ? "preview-msg err" : "preview-msg ok"
-                  }
+                  className={previewErr ? "preview-msg err" : "preview-msg ok"}
                 >
                   {previewMsg}
                 </span>
               )}
             </label>
 
-            <div className="interest-panel">
-              <div>
-                <b>Interesse</b>
-                <small>Quanto ti va di recuperarlo?</small>
-              </div>
-              <div className="star-picker">
-                {[1, 2, 3, 4, 5].map((n) => (
-                  <button
-                    type="button"
-                    key={n}
-                    className={n <= Number(form.interest) ? "on" : ""}
-                    onClick={() => set("interest", n)}
-                    aria-label={`${n} su 5`}
-                  >
-                    ★
-                  </button>
-                ))}
-              </div>
+            <div className="field-row">
+              <label className="field grow">
+                <span>Dove lo trovo?</span>
+                <input
+                  value={form.where_to}
+                  onChange={(e) => set("where_to", e.target.value)}
+                  placeholder="Netflix, Steam, biblioteca..."
+                />
+              </label>
+              <label className="field interest-field">
+                <span>Interesse</span>
+                <div className="star-picker inline">
+                  {[1, 2, 3, 4, 5].map((n) => (
+                    <button
+                      type="button"
+                      key={n}
+                      className={n <= Number(form.interest) ? "on" : ""}
+                      onClick={() => set("interest", n)}
+                      aria-label={`${n} su 5`}
+                    >
+                      ★
+                    </button>
+                  ))}
+                </div>
+              </label>
             </div>
 
             <label className="field">

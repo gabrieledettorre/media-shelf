@@ -53,12 +53,11 @@ router.post("/", (req, res) => {
   const d = clean(req.body);
   if (!valid(d))
     return res.status(400).json({
-      error:
-        "Titolo e categoria sono obbligatori. Controlla anno, cover e link.",
+      error: "Titolo e categoria sono obbligatori. Controlla cover e link.",
     });
   const r = db
     .prepare(
-      "INSERT INTO media(title,type,year,cover,interest,where_to,link,notes) VALUES(@title,@type,@year,@cover,@interest,@where_to,@link,@notes)"
+      "INSERT INTO media(title,type,cover,interest,where_to,link,notes) VALUES(@title,@type,@cover,@interest,@where_to,@link,@notes)"
     )
     .run(d);
   res
@@ -70,12 +69,11 @@ router.put("/:id", (req, res) => {
   const d = clean(req.body);
   if (!valid(d))
     return res.status(400).json({
-      error:
-        "Titolo e categoria sono obbligatori. Controlla anno, cover e link.",
+      error: "Titolo e categoria sono obbligatori. Controlla cover e link.",
     });
   const r = db
     .prepare(
-      "UPDATE media SET title=@title,type=@type,year=@year,cover=@cover,interest=@interest,where_to=@where_to,link=@link,notes=@notes,updated_at=CURRENT_TIMESTAMP WHERE id=@id"
+      "UPDATE media SET title=@title,type=@type,cover=@cover,interest=@interest,where_to=@where_to,link=@link,notes=@notes,updated_at=CURRENT_TIMESTAMP WHERE id=@id"
     )
     .run({ ...d, id: Number(req.params.id) });
   if (!r.changes)
